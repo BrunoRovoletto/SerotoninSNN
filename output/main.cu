@@ -93,6 +93,7 @@
 #include "code_objects/neurongroup_spike_thresholder_codeobject.h"
 #include "code_objects/after_run_neurongroup_spike_thresholder_codeobject.h"
 #include "code_objects/spikemonitor_codeobject.h"
+#include "code_objects/spikemonitor_1_codeobject.h"
 #include "code_objects/synapses_10_pre_push_spikes.h"
 #include "code_objects/before_run_synapses_10_pre_push_spikes.h"
 #include "code_objects/synapses_10_pre_codeobject.h"
@@ -781,6 +782,7 @@ int main(int argc, char **argv)
         network.add(&defaultclock, _run_neurongroup_9_spike_thresholder_codeobject);
         network.add(&defaultclock, _run_neurongroup_spike_thresholder_codeobject);
         network.add(&defaultclock, _run_spikemonitor_codeobject);
+        network.add(&defaultclock, _run_spikemonitor_1_codeobject);
         network.add(&defaultclock, _run_synapses_10_pre_push_spikes);
         network.add(&defaultclock, _run_synapses_10_pre_codeobject);
         network.add(&defaultclock, _run_synapses_11_pre_push_spikes);
@@ -843,6 +845,8 @@ int main(int argc, char **argv)
         _after_run_neurongroup_9_spike_thresholder_codeobject();
         _after_run_neurongroup_spike_thresholder_codeobject();
         _debugmsg_spikemonitor_codeobject();
+        
+        _debugmsg_spikemonitor_1_codeobject();
         
         _debugmsg_synapses_10_pre_codeobject();
         

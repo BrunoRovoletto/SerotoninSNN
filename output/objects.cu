@@ -3388,6 +3388,21 @@ double * brian::dev_array_neurongroup_Y;
 __device__ double * brian::d_array_neurongroup_Y;
 const int brian::_num__array_neurongroup_Y = 2;
 
+int32_t * brian::_array_spikemonitor_1__source_idx;
+int32_t * brian::dev_array_spikemonitor_1__source_idx;
+__device__ int32_t * brian::d_array_spikemonitor_1__source_idx;
+const int brian::_num__array_spikemonitor_1__source_idx = 120;
+
+int32_t * brian::_array_spikemonitor_1_count;
+int32_t * brian::dev_array_spikemonitor_1_count;
+__device__ int32_t * brian::d_array_spikemonitor_1_count;
+const int brian::_num__array_spikemonitor_1_count = 120;
+
+int32_t * brian::_array_spikemonitor_1_N;
+int32_t * brian::dev_array_spikemonitor_1_N;
+__device__ int32_t * brian::d_array_spikemonitor_1_N;
+const int brian::_num__array_spikemonitor_1_N = 1;
+
 int32_t * brian::_array_spikemonitor__source_idx;
 int32_t * brian::dev_array_spikemonitor__source_idx;
 __device__ int32_t * brian::d_array_spikemonitor__source_idx;
@@ -3578,6 +3593,10 @@ thrust::host_vector<int32_t*> brian::dev_array_neurongroup__spikespace(1);
 int brian::current_idx_array_neurongroup__spikespace = 0;
 
 //////////////// dynamic arrays 1d /////////
+thrust::host_vector<int32_t> brian::_dynamic_array_spikemonitor_1_i;
+thrust::device_vector<int32_t> brian::dev_dynamic_array_spikemonitor_1_i;
+thrust::host_vector<double> brian::_dynamic_array_spikemonitor_1_t;
+thrust::device_vector<double> brian::dev_dynamic_array_spikemonitor_1_t;
 thrust::host_vector<int32_t> brian::_dynamic_array_spikemonitor_i;
 thrust::device_vector<int32_t> brian::dev_dynamic_array_spikemonitor_i;
 thrust::host_vector<double> brian::_dynamic_array_spikemonitor_t;
@@ -5549,6 +5568,30 @@ void _init_arrays()
             CUDA_SAFE_CALL(
                     cudaMemcpy(dev_array_neurongroup_Y, _array_neurongroup_Y, sizeof(double)*_num__array_neurongroup_Y, cudaMemcpyHostToDevice)
                     );
+            _array_spikemonitor_1__source_idx = new int32_t[120];
+            for(int i=0; i<120; i++) _array_spikemonitor_1__source_idx[i] = 0;
+            CUDA_SAFE_CALL(
+                    cudaMalloc((void**)&dev_array_spikemonitor_1__source_idx, sizeof(int32_t)*_num__array_spikemonitor_1__source_idx)
+                    );
+            CUDA_SAFE_CALL(
+                    cudaMemcpy(dev_array_spikemonitor_1__source_idx, _array_spikemonitor_1__source_idx, sizeof(int32_t)*_num__array_spikemonitor_1__source_idx, cudaMemcpyHostToDevice)
+                    );
+            _array_spikemonitor_1_count = new int32_t[120];
+            for(int i=0; i<120; i++) _array_spikemonitor_1_count[i] = 0;
+            CUDA_SAFE_CALL(
+                    cudaMalloc((void**)&dev_array_spikemonitor_1_count, sizeof(int32_t)*_num__array_spikemonitor_1_count)
+                    );
+            CUDA_SAFE_CALL(
+                    cudaMemcpy(dev_array_spikemonitor_1_count, _array_spikemonitor_1_count, sizeof(int32_t)*_num__array_spikemonitor_1_count, cudaMemcpyHostToDevice)
+                    );
+            _array_spikemonitor_1_N = new int32_t[1];
+            for(int i=0; i<1; i++) _array_spikemonitor_1_N[i] = 0;
+            CUDA_SAFE_CALL(
+                    cudaMalloc((void**)&dev_array_spikemonitor_1_N, sizeof(int32_t)*_num__array_spikemonitor_1_N)
+                    );
+            CUDA_SAFE_CALL(
+                    cudaMemcpy(dev_array_spikemonitor_1_N, _array_spikemonitor_1_N, sizeof(int32_t)*_num__array_spikemonitor_1_N, cudaMemcpyHostToDevice)
+                    );
             _array_spikemonitor__source_idx = new int32_t[2];
             for(int i=0; i<2; i++) _array_spikemonitor__source_idx[i] = 0;
             CUDA_SAFE_CALL(
@@ -5858,6 +5901,15 @@ void _init_arrays()
 
     CUDA_SAFE_CALL(
             cudaMemcpy(dev_array_neurongroup_i, _array_neurongroup_i, sizeof(int32_t)*_num__array_neurongroup_i, cudaMemcpyHostToDevice)
+            );
+    _array_spikemonitor_1__source_idx = new int32_t[120];
+    for(int i=0; i<120; i++) _array_spikemonitor_1__source_idx[i] = 0 + i;
+    CUDA_SAFE_CALL(
+            cudaMalloc((void**)&dev_array_spikemonitor_1__source_idx, sizeof(int32_t)*_num__array_spikemonitor_1__source_idx)
+            );
+
+    CUDA_SAFE_CALL(
+            cudaMemcpy(dev_array_spikemonitor_1__source_idx, _array_spikemonitor_1__source_idx, sizeof(int32_t)*_num__array_spikemonitor_1__source_idx, cudaMemcpyHostToDevice)
             );
     _array_spikemonitor__source_idx = new int32_t[2];
     for(int i=0; i<2; i++) _array_spikemonitor__source_idx[i] = 0 + i;
@@ -7621,6 +7673,42 @@ void _write_arrays()
         std::cout << "Error writing output file for _array_neurongroup_Y." << endl;
     }
     CUDA_SAFE_CALL(
+            cudaMemcpy(_array_spikemonitor_1__source_idx, dev_array_spikemonitor_1__source_idx, sizeof(int32_t)*_num__array_spikemonitor_1__source_idx, cudaMemcpyDeviceToHost)
+            );
+    ofstream outfile__array_spikemonitor_1__source_idx;
+    outfile__array_spikemonitor_1__source_idx.open(results_dir + "_array_spikemonitor_1__source_idx_3609292218", ios::binary | ios::out);
+    if(outfile__array_spikemonitor_1__source_idx.is_open())
+    {
+        outfile__array_spikemonitor_1__source_idx.write(reinterpret_cast<char*>(_array_spikemonitor_1__source_idx), 120*sizeof(int32_t));
+        outfile__array_spikemonitor_1__source_idx.close();
+    } else
+    {
+        std::cout << "Error writing output file for _array_spikemonitor_1__source_idx." << endl;
+    }
+    CUDA_SAFE_CALL(
+            cudaMemcpy(_array_spikemonitor_1_count, dev_array_spikemonitor_1_count, sizeof(int32_t)*_num__array_spikemonitor_1_count, cudaMemcpyDeviceToHost)
+            );
+    ofstream outfile__array_spikemonitor_1_count;
+    outfile__array_spikemonitor_1_count.open(results_dir + "_array_spikemonitor_1_count_3862916462", ios::binary | ios::out);
+    if(outfile__array_spikemonitor_1_count.is_open())
+    {
+        outfile__array_spikemonitor_1_count.write(reinterpret_cast<char*>(_array_spikemonitor_1_count), 120*sizeof(int32_t));
+        outfile__array_spikemonitor_1_count.close();
+    } else
+    {
+        std::cout << "Error writing output file for _array_spikemonitor_1_count." << endl;
+    }
+    ofstream outfile__array_spikemonitor_1_N;
+    outfile__array_spikemonitor_1_N.open(results_dir + "_array_spikemonitor_1_N_2390248205", ios::binary | ios::out);
+    if(outfile__array_spikemonitor_1_N.is_open())
+    {
+        outfile__array_spikemonitor_1_N.write(reinterpret_cast<char*>(_array_spikemonitor_1_N), 1*sizeof(int32_t));
+        outfile__array_spikemonitor_1_N.close();
+    } else
+    {
+        std::cout << "Error writing output file for _array_spikemonitor_1_N." << endl;
+    }
+    CUDA_SAFE_CALL(
             cudaMemcpy(_array_spikemonitor__source_idx, dev_array_spikemonitor__source_idx, sizeof(int32_t)*_num__array_spikemonitor__source_idx, cudaMemcpyDeviceToHost)
             );
     ofstream outfile__array_spikemonitor__source_idx;
@@ -7940,6 +8028,28 @@ void _write_arrays()
         std::cout << "Error writing output file for _array_synapses_targets_1." << endl;
     }
 
+    _dynamic_array_spikemonitor_1_i = dev_dynamic_array_spikemonitor_1_i;
+    ofstream outfile__dynamic_array_spikemonitor_1_i;
+    outfile__dynamic_array_spikemonitor_1_i.open(results_dir + "_dynamic_array_spikemonitor_1_i_2680224553", ios::binary | ios::out);
+    if(outfile__dynamic_array_spikemonitor_1_i.is_open())
+    {
+        outfile__dynamic_array_spikemonitor_1_i.write(reinterpret_cast<char*>(thrust::raw_pointer_cast(&_dynamic_array_spikemonitor_1_i[0])), _dynamic_array_spikemonitor_1_i.size()*sizeof(int32_t));
+        outfile__dynamic_array_spikemonitor_1_i.close();
+    } else
+    {
+        std::cout << "Error writing output file for _dynamic_array_spikemonitor_1_i." << endl;
+    }
+    _dynamic_array_spikemonitor_1_t = dev_dynamic_array_spikemonitor_1_t;
+    ofstream outfile__dynamic_array_spikemonitor_1_t;
+    outfile__dynamic_array_spikemonitor_1_t.open(results_dir + "_dynamic_array_spikemonitor_1_t_4240873456", ios::binary | ios::out);
+    if(outfile__dynamic_array_spikemonitor_1_t.is_open())
+    {
+        outfile__dynamic_array_spikemonitor_1_t.write(reinterpret_cast<char*>(thrust::raw_pointer_cast(&_dynamic_array_spikemonitor_1_t[0])), _dynamic_array_spikemonitor_1_t.size()*sizeof(double));
+        outfile__dynamic_array_spikemonitor_1_t.close();
+    } else
+    {
+        std::cout << "Error writing output file for _dynamic_array_spikemonitor_1_t." << endl;
+    }
     _dynamic_array_spikemonitor_i = dev_dynamic_array_spikemonitor_i;
     ofstream outfile__dynamic_array_spikemonitor_i;
     outfile__dynamic_array_spikemonitor_i.open(results_dir + "_dynamic_array_spikemonitor_i_1976709050", ios::binary | ios::out);
@@ -9176,6 +9286,14 @@ void _dealloc_arrays()
     synapses_9_pre_destroy<<<1,1>>>();
     CUDA_CHECK_ERROR("synapses_9_pre_destroy");
 
+    dev_dynamic_array_spikemonitor_1_i.clear();
+    thrust::device_vector<int32_t>().swap(dev_dynamic_array_spikemonitor_1_i);
+    _dynamic_array_spikemonitor_1_i.clear();
+    thrust::host_vector<int32_t>().swap(_dynamic_array_spikemonitor_1_i);
+    dev_dynamic_array_spikemonitor_1_t.clear();
+    thrust::device_vector<double>().swap(dev_dynamic_array_spikemonitor_1_t);
+    _dynamic_array_spikemonitor_1_t.clear();
+    thrust::host_vector<double>().swap(_dynamic_array_spikemonitor_1_t);
     dev_dynamic_array_spikemonitor_i.clear();
     thrust::device_vector<int32_t>().swap(dev_dynamic_array_spikemonitor_i);
     _dynamic_array_spikemonitor_i.clear();
@@ -10856,6 +10974,42 @@ void _dealloc_arrays()
                 cudaFree(dev_array_neurongroup_Y)
                 );
         dev_array_neurongroup_Y = 0;
+    }
+    if(_array_spikemonitor_1__source_idx!=0)
+    {
+        delete [] _array_spikemonitor_1__source_idx;
+        _array_spikemonitor_1__source_idx = 0;
+    }
+    if(dev_array_spikemonitor_1__source_idx!=0)
+    {
+        CUDA_SAFE_CALL(
+                cudaFree(dev_array_spikemonitor_1__source_idx)
+                );
+        dev_array_spikemonitor_1__source_idx = 0;
+    }
+    if(_array_spikemonitor_1_count!=0)
+    {
+        delete [] _array_spikemonitor_1_count;
+        _array_spikemonitor_1_count = 0;
+    }
+    if(dev_array_spikemonitor_1_count!=0)
+    {
+        CUDA_SAFE_CALL(
+                cudaFree(dev_array_spikemonitor_1_count)
+                );
+        dev_array_spikemonitor_1_count = 0;
+    }
+    if(_array_spikemonitor_1_N!=0)
+    {
+        delete [] _array_spikemonitor_1_N;
+        _array_spikemonitor_1_N = 0;
+    }
+    if(dev_array_spikemonitor_1_N!=0)
+    {
+        CUDA_SAFE_CALL(
+                cudaFree(dev_array_spikemonitor_1_N)
+                );
+        dev_array_spikemonitor_1_N = 0;
     }
     if(_array_spikemonitor__source_idx!=0)
     {

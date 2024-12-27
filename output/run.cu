@@ -39,6 +39,7 @@
 #include "code_objects/neurongroup_spike_resetter_codeobject.h"
 #include "code_objects/neurongroup_spike_thresholder_codeobject.h"
 #include "code_objects/neurongroup_stateupdater_codeobject.h"
+#include "code_objects/spikemonitor_1_codeobject.h"
 #include "code_objects/spikemonitor_codeobject.h"
 #include "code_objects/statemonitor_codeobject.h"
 #include "code_objects/synapses_10_group_variable_set_conditional_codeobject.h"

@@ -1,0 +1,6 @@
+#ifndef _INCLUDED_neurongroup_18_spike_thresholder_codeobject_after
+#define _INCLUDED_neurongroup_18_spike_thresholder_codeobject_affer
+
+void _after_run_neurongroup_18_spike_thresholder_codeobject();
+
+#endif

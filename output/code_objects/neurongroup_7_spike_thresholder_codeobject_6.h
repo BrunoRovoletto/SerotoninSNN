@@ -1,0 +1,8 @@
+#ifndef _INCLUDED_neurongroup_7_spike_thresholder_codeobject_6
+#define _INCLUDED_neurongroup_7_spike_thresholder_codeobject_6
+
+void _run_neurongroup_7_spike_thresholder_codeobject_6();
+
+__global__ void _reset_neurongroup_7_spike_thresholder_codeobject_6(int32_t*);
+
+#endif

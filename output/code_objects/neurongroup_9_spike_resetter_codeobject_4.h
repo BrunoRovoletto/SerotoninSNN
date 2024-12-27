@@ -1,0 +1,7 @@
+#ifndef _INCLUDED_neurongroup_9_spike_resetter_codeobject_4
+#define _INCLUDED_neurongroup_9_spike_resetter_codeobject_4
+
+void _run_neurongroup_9_spike_resetter_codeobject_4();
+
+
+#endif
