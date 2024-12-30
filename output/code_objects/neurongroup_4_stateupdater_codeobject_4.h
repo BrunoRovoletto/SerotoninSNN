@@ -1,7 +1,0 @@
-#ifndef _INCLUDED_neurongroup_4_stateupdater_codeobject_4
-#define _INCLUDED_neurongroup_4_stateupdater_codeobject_4
-
-void _run_neurongroup_4_stateupdater_codeobject_4();
-
-
-#endif
