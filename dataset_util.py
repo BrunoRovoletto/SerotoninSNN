@@ -173,7 +173,7 @@ class Synthetic_Dataset_Utils():
     def _get_cat_idx(self, num_classes_per_level, max_depth):
       cat_idx = []
 
-      for i in range(27):
+      for i in range(num_classes_per_level ** max_depth):
 
         idx = []
 
@@ -194,7 +194,7 @@ class Synthetic_Dataset_Utils():
             # Add 1 for the current level and calculate the max depth of the children
             return 1 + max(self.get_depth(child) for child in tree[1])
 
-    def make_dataset(self, tree, num_samples_per_class, GPU = True, N=21):
+    def make_dataset(self, tree, num_classes_per_level, num_samples_per_class, GPU = True, N=21):
 
         dataset = {}
         max_depth = self.get_depth(tree)
